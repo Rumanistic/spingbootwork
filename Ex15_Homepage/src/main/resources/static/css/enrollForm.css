@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+html {
+  margin: 0 5% 0;
+}
+
+.enroll table {
+  width: 60%;
+  border-collapse: collapse;
+}
+
+.enroll tr {
+  border-bottom: 1px solid black;
+  height: 35px
+}
+
+.enroll th {
+  background-color: rgb(202, 202, 202);
+}
+
+.enroll td {
+  padding-left: 10px;
+  width: auto;
+}
+
+.enroll td > input {
+  display: inline;
+  border: none;
+  background-color: rgb(231, 223, 223);
+  height: 80%;
+  width: 60%;
+}
+
+.enroll td > h5 {
+  display: none;
+  /*display: inline;*/
+  width: auto;
+}

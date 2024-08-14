@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="|${b.title}|"></title>
+<link rel="stylesheet" href="/css/header.css">
+<!--<link rel="stylesheet" href="/css/detailForm.css">-->
+<script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+	<div th:replace="~{/fragments/header.html :: fragment-menu}"></div>
+	<table>
+		<tr>
+			<th colspan="4">글 읽 기</th>
+		</tr>
+		<tr>
+			<td width="15%" class="col">이름</td>
+			<td width="35%" class="col2" th:text="|${b.writer}|"></td>
+			<td width="15%" class="col">등록날짜</td>
+			<td width="35%" class="col2" th:text="|*{#temporals.format(b.createdDate, 'yyyy-MM-dd')}|"></td>
+		</tr>
+		<tr>
+			<td width="15%" class="col">제목</td>
+			<td colspan="3" class="col2" style="text-align:left; padding-left:10px;" th:text="|${b.title}|"></td>
+		</tr>
+		<tr>
+			<td colspan="4" style="height:120px; text-align:left;" th:text="|${b.content}|">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4"><hr><br>
+				[ <a href="">리스트</a> | 
+				<a href="">수 정</a> | 
+				<a href="">답 변</a> | 
+				<a href=""> 삭 제</a> ]
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
