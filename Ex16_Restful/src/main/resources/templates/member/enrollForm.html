@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/enrollForm.css">
+<script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+	<div th:replace="~{/fragments/header.html :: fragment-menu}"></div>
+	<h1 align="center">회 원 가 입</h1>
+	<hr>
+	<form class="enroll" action="memberInsert" method="post">
+		
+		<table align="center">
+			<tr>
+			<th>아이디</th>
+			<td style="width: 520px;">
+				<input type="text" name="id" id="id">
+				<span id="checkResult" style="display: none;"></span>
+			</td>
+			<td style="width: 300px"><h5 id="idChkInfo">영문자와 숫자로 이뤄진 문자열<br>4글자 이상 12글자 이내로 작성해야 합니다.</h5></td>
+		</tr>
+		<tr>
+			<th>비밀번호</th>
+			<td><input type="password" name="password" id="password"></td>
+			<td>
+				<h5>영대/소문자 1자 이상 포함해야 합니다.</h5><br>
+				<h5>숫자 1자 이상 포함해야 합니다.</h5><br>
+				<h5>특수문자 1자 이상 포함해야 합니다.</h5>
+			</td>
+		</tr>
+		<tr>
+			<th>비밀번호 확인</th>
+			<td><input type="password" name="pwdChk" id="pwdChk"></td>
+			<td><h5>입력한 비밀번호와 동일해야 합니다.</h5></td>
+		</tr>
+		<tr>
+			<th>이름</th>
+			<td><input type="text" name="name" id="name"></td>
+		</tr>
+		<tr>
+			<th>생년월일</th>
+			<td><input type="text" name="birthday" id="birthday"></td>
+			<td></td>
+		</tr>
+		<tr>
+			<th>성별</th>
+			<td>
+				<input type="radio" name="gender" id="M" style="width: auto">
+				<label for="M">남</label> &emsp;&emsp;&emsp;&emsp;
+				<input type="radio" name="gender" id="F" style="width: auto">
+				<label for="F">여</label>
+			</td>
+		</tr>
+		<tr>
+			<th>전화번호</th>
+			<td><input type="text" name="phone" id="phone"></td>
+		</tr>
+		<tr>
+			<th>주소</th>
+			<td><input type="text" name="address" id="address"></td>
+		</tr>
+		<tr>
+			<th>이메일</th>
+			<td><input type="text" name="email" id="email"></td>
+		</tr>
+	</table>
+	<br>
+	<div align="center">
+		<button type="reset">다시 작성</button>&emsp;&emsp;&emsp;<button type="submit">회원 가입</button>
+	</div>
+	<hr>
+</form>
+
+<script>
+	const incAlpha = /([a-zA-Z])+/;
+	const incNumeric = /([0-9])+/;
+	const incSpecChar = /([!@#$%^&*()\-_=+\[\]{};:'",.<>?\/\\|`~])/;
+
+
+	$(() => {
+		const $userId = $("#id");
+		$userId.keyup(() => {
+			if($userId.val().length >= 4 && $userId.val().length <= 12) {
+				$.ajax({
+					url: "idCheck",
+					data: {"userId": $userId.val()},
+					success: (result) => {
+						console.log(result);
+						if(result){
+							$("#checkResult").text("중복된 아이디");
+							$("#checkResult").css({color: "red"});
+						}
+						else {
+							$("#checkResult").text("사용 가능");
+							$("#checkResult").css({color: "green"});
+						}
+					},
+					error: () => {
+						console.log("ID Duplicate check function ajax connection error");
+					}
+				})
+				$("#checkResult").show();
+				$("#idChkInfo").css({display: "inline",
+									color: "green"});
+
+				if(incSpecChar.test($userId.val())){
+					$("#idChkInfo").css("color", "red");
+					$("#checkResult").hide();
+				} else {
+					$("#idChkInfo").css("color", "green");
+					$("#checkResult").show();
+				}
+
+			}
+			else {
+				$("#checkResult").hide();
+				$("#idChkInfo").css({display: "inline",
+									color: "red"});
+			}
+		})
+	})
+</script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+.list {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.list_header {
+  display: flex;
+  justify-content: space-between; /* 좌우로 요소를 끝에 배치 */
+  align-items: center; /* 요소를 수직으로 가운데 정렬 */
+}
+
+.list_count {
+  font-size: larger;
+}
+
+.list_form {
+  display: inline;
+  margin-right: 5px;
+}
+
+.insert {
+  display: inline;
+  margin: 0 5px;
+}
+
+.list table {
+  margin: 0;
+  width: 100%;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+	<div th:fragment="fragment-menu">
+		<h1 align="center">SpringBoot HomePage</h1>
+		<!-- 로그인 후 -->
+		<div th:if="${loginUser!=null && loginUser != 'null'}" align="right">
+			<table>
+				<tr>
+					<td>
+						<h4>[[${loginUser.name}]]님 환영합니다.</h4>
+					</td>
+					<!--<td th:text="|${loginUser.name}님 환영합니다.|"></td>-->
+					<!--
+						버티컬 바 사용 시 백틱을 쓴 것과 같이 사용 가능
+						<td th:text="|${loginUser.name}님 환영합니다.|"></td>
+					-->
+				</tr>
+				<tr>
+					<td align="center">
+						<a href="">마이페이지</a>&emsp;&emsp;
+						<a href="logout">로그아웃</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<!-- 로그인 전 -->
+		<div th:if="${loginUser == null}" align="right">
+			<form class="login" action="login" method="post">
+				<table>
+					<tr>
+						<td>ID: </td>
+						<td><input name="id"></td>
+						<td rowspan="2"><button>로그인</button></td>
+					</tr>
+					<tr>
+						<td>PWD: </td>
+						<td><input type="password" name="password" id="password"></td>
+					</tr>
+					<tr>
+						<td colspan="3" align="center">
+							<a href="enrollForm">회원가입</a>&emsp;&emsp;
+							<a href="">아이디/비밀번호 찾기</a>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+
+		<nav>
+			<ul>
+				<li><a href="home">HOME</a></li>
+				<li><a href="menuForm">메뉴</a></li>
+				<li><a href="list">게시판</a></li>
+				<li><a href="">찾아오는 길</a></li>
+			</ul>
+		</nav>
+	</div>
+</html>

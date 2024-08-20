@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>스프링부트 게시판</title>
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/list.css">
+<script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+  <div th:replace="~{/fragments/header.html :: fragment-menu}"></div>
+  <h1 align="center">게 시 판</h1>
+  <div class="list" align="center">
+    <div class="list_header" align="center">
+      <span class="list_count" th:text="|총 게시글의 수 : ${boardPage.totalElements}|"></span>
+      <span>
+        <form class="list_form" action="queryBoard">
+          <select name="querySelector" id="querySelector">
+            <option value="title">제목</option>
+            <option value="writer">작성자</option>
+            <option value="content">내용</option>
+          </select>
+          <input type="text" name="queryValue" placeholder="검색...">
+          <button type="submit">검색</button>
+        </form>
+        <h4 class="insert" th:if="${loginUser != null}")><a href="insertForm">등록</a></h4>
+      </span>
+    </div>
+    <table align="center">
+      <tr>
+        <th style="width: 10%;">번호</th>
+        <th style="width: 45%">제목</th>
+        <th style="width: 15%">작성자</th>
+        <th style="width: 10%;">조회수</th>
+        <th style="width: 15%;">작성일시</th>
+      </tr>
+      <tr th:each="b, state : ${boardPage}">
+		<td th:text="${boardPage.totalElements - nowPage*boardPage.size - state.index}"></td>
+        <td>
+			<a th:text="${b.title}" th:href="@{detailForm(bno=${b.bno})}"></a>
+		</td>
+        <td th:text="${b.writer}"></td>
+        <td th:text="${b.count}"></td>
+        <td th:text="*{#temporals.format(b.createdDate, 'yyyy-MM-dd')}"></td>
+      </tr>
+    </table>
+    <div align="center">
+		<a th:if="${nowPage > 0}" th:href="@{list(nowPage=${nowPage - 1})}"> prev </a>
+		<span th:each="pageNumber : ${#numbers.sequence(nowPage, endPage -1)}">
+			<strong th:if="${pageNumber == nowPage}" th:text="|${pageNumber + 1}|"></strong>
+			<a th:unless="${pageNumber == nowPage}" th:href="@{list(nowPage=${pageNumber})}" th:text="|${pageNumber + 1}|"></a>
+		</span>
+		<a th:if="${nowPage < boardPage.totalPages - 1}" th:href="@{list(nowPage=${nowPage + 1})}"> next </a>
+	</div>
+  </div>
+</body>
+</html>

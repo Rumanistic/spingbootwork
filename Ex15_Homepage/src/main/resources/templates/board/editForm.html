@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="|${b.title}|"></title>
+<link rel="stylesheet" href="/css/header.css">
+<!--<link rel="stylesheet" href="/css/detailForm.css">-->
+<script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+	<div th:replace="~{/fragments/header.html :: fragment-menu}"></div>
+	<form action="editBoardDetail" method="post">
+		<table>
+			<tr>
+				<th colspan="4">글 읽 기</th>
+			</tr>
+			<tr>
+				<td width="15%" class="col">글번호</td>
+				<td width="35%" class="col2">
+					<input class="ro" name="bno" th:value="${b.bno}" readonly>
+				</td>
+				<td width="15%" class="col">등록날짜</td>
+				<td width="35%" class="col2" th:text="|*{#temporals.format(b.createdDate, 'yyyy-MM-dd')}|"></td>
+			</tr>
+			<tr>
+				<td width="15%" class="col">제목</td>
+				<td colspan="3" class="col2" style="text-align:left; padding-left:10px;" >
+					<input name="title" th:value="|${b.title}|">					
+				</td>
+				
+			</tr>
+			<tr>
+				<td colspan="4" style="height:120px; text-align:left;">
+					<textarea name="content" th:text="|${b.content}|"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<hr>
+					<input type="submit" value="수정"> &emsp;&emsp; <a href="detailForm.html">돌아가기</a>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
