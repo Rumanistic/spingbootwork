@@ -30,6 +30,7 @@ public class MenuRestController {
 		return ms.getAllMenu();
 	}
 	
+	// 변경체크용
 	@GetMapping("/type/{type}")
 	public List<Menu> selectMenu(@PathVariable(name="type") Type t) {
 		return ms.getSelectMenu(t);
